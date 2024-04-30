@@ -1,0 +1,27 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Helm
+      uses: azure/setup-helm@v1
+      with:
+        helm-version: '3.x'  # Specify the desired Helm version
+
+    - name: Deploy Helm chart
+      run: |
+        helm upgrade --install my-web-app ./my-web-app \
+          --namespace my-namespace \
+          --create-namespace \
+          --set image.tag=latest  # Replace 'latest' with your image tag
+

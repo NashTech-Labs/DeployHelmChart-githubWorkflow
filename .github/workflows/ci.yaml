@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Kubernetes
+      uses: azure/setup-kubectl@v2
+      with:
+        version: '1.22'  # Specify the desired version of kubectl
+
+    - name: Run tests
+      run: echo "Running tests"  # Replace this with actual test commands
+
